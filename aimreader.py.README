@@ -1,0 +1,53 @@
+20190722 - MARK SIMMONS: 
+
+*** CHG LOG ***
+# 20190709 SIMMOMA - V1 Initial Prototype created to read Benchmark and spread fields
+# 20190710 SIMMOMA - V2 Added in all of Jim Jackson's requested fields
+# 20190710 SIMMOMA - V2 Added in the ability to take filenames as args
+# 20190717 SIMMOMA - V3 Handled the fractional indicators
+# 20190719 SIMMOMA - V4 Jim Jackson confirmed the required spreads: Bench, i, z, & oas. Not d.
+#                  -    d_spread removed from header and read and write operations.
+# 20190722 SIMMOMA - V5 Added an ASOF date to identify the data inside the files and as second Arg
+# 20190722 SIMMOMA - V6 Changed Header to match the CRD VCM_TRANS_EXTRACT Header for consistancy. 
+
+
+Useage: aimreader.py <input file> <ASOF date 'YYYYMMDD'> <output file (optional)>
+
+The first argument is required and is the name of the AIM history file you want to convert. Ex: f2637dump.2012.0.ext
+
+The second arguemnt is required and is the "ASOF Date" for the data in the file. It should be in YYYMMDD format, although it will take any string. This string will be added to the ASOF_DATE at the beginning of every record and provies a way to identify all the data in a single load. THis is the same functionality that an ETL number would provide and it can be used to back data out and reloaded in a database later. 
+
+The third argument is optional and is an output file name. If no name is specified, then ".dsv" is appended to the input file name and that becomes the output file name. Ex: f2637dump.2012.0.ext.dsv
+
+The default delimiter is a pipe, but you can specify whatever you like in the delim = "|" at the top of the file aimreader.py file.
+
+
+aimreader.py needs the following to run: 
+
+1) you need python installed
+2) you need a user path var set to the python.exe so you can run it anywhere
+3) aimreader.py needs to be in the same folder as the AIM history dump file you want to read. I didnt have time to mess with parsing paths and I only need to convert a few files. 
+
+
+	header = ("ASOF_DATE"+delim+
+			"ORDER_ID"+delim+
+			"CUSIP"+delim+
+			"TICKER"+delim+
+			"COUPON"+delim+
+			"MATURITY_DATE"+delim+
+			"BUYSELL"+delim+
+			"TRADE_DATE"+delim+
+			"SETTLE_DATE"+delim+
+			"PAR_AMT"+delim+
+			"YIELD_AMT"+delim+
+			"DEALER"+delim+
+			"FUND_NUMBER"+delim+
+			"BENCHMARK"+delim+
+			"BENCHMARK_YIELD"+delim+
+			"BENCHMARK_SPREAD"+delim+
+			"I_SPREAD"+delim+
+			"Z_SPREAD"+delim+
+			"OAS_SPREAD")
+
+
+
